@@ -1,12 +1,12 @@
-from djmoney.models.fields import MoneyField
+import hashlib
 from django.db import models
-from djmoney.money import Money, Currency
-from django_countries.fields import CountryField
-from djmoney.contrib.exchange.models import convert_money
 from django.utils.text import slugify
+from djmoney.models.fields import MoneyField
+from djmoney.money import Money, Currency
+from djmoney.contrib.exchange.models import convert_money
+from django_countries.fields import CountryField
 
 
-# Create your models here.
 class UserProfile(models.Model):
     """Payment system's User"""
     name = models.CharField(max_length=200)
@@ -24,18 +24,13 @@ class Wallet(models.Model):
 
     def _secret_hash(self):
         #generates secret hash for wallet to alias it in secret link
-        import hashlib
         user_code = "%s %s %s" % (self.owner.name, self.owner.city , self.owner.country)
-        #import ipdb; ipdb.set_trace()
         user_hash = hashlib.sha224(user_code.encode('utf8')).hexdigest()
         return user_hash
 
     def _get_unique_slug(self):
-        print("preslug")
         text = str(self.balance.currency) + str(self._secret_hash())
-        print(text)
         slug = slugify(text)
-        print(slug)
         unique_slug = slug
         return unique_slug
 
@@ -46,13 +41,11 @@ class Wallet(models.Model):
 
     @classmethod
     def register_wallet(cls, user_name, country, city, wallet_currency):
-        print("register_wallet")
         # register user:
         up, created = UserProfile.objects.get_or_create(name=user_name,
                                                         country=country,
                                                         city=city)
-        #print("created")
-        #print(created)
+
         wallet_candidates = Wallet.objects.filter(owner=up)
         if len(wallet_candidates) == 1:
             # check currencies match:
@@ -138,10 +131,6 @@ class Wallet(models.Model):
         target_wallet.save()
         return tr_transaction
 
-    @classmethod
-    def get_transactions_report(cls, target_wallet, start_dt, fin_dt):
-        print("get_transactions_report")
-
 
 class FillUpBroker(models.Model):
     """
@@ -167,7 +156,7 @@ class AbstractFinancialTransaction(models.Model):
 class FillUpTransaction(AbstractFinancialTransaction):
     FILL_UP_TR_TYPE = "FillUp"
 
-    # overload parent field
+    # override parent field
     transaction_type = models.CharField(max_length=20, null=False, default=FILL_UP_TR_TYPE)
 
     source_broker = models.ForeignKey(FillUpBroker, on_delete=models.CASCADE)
@@ -175,7 +164,7 @@ class FillUpTransaction(AbstractFinancialTransaction):
 
 class TransferTransaction(AbstractFinancialTransaction):
     TRANSFER_TR_TYPE = "Transfer"
-    # overload parent field
+    # override parent field
     transaction_type = models.CharField(max_length=20, null=False, default=TRANSFER_TR_TYPE)
 
     source_wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name="transfers_by_source")

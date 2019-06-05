@@ -18,7 +18,6 @@ admin.site.unregister(Rate)
 admin.site.register(Rate, RateAdmin)
 
 
-
 class ExchangeBackendAdmin(admin.ModelAdmin):
     pass
 

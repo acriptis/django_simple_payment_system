@@ -1,11 +1,12 @@
 import os
+from django.conf import settings
+from django.shortcuts import render
+from django.template import loader
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse, HttpResponseNotFound
 from django.http import FileResponse
-from django.shortcuts import render
-from django.template import loader
-from django.conf import settings
+
 from wallets.forms import RegistrationForm, FillUpWalletForm, SendMoneyForm, FilterTransactionsForm
 from wallets.models import Wallet
 from wallets.transactions_manager import TransactionsManager

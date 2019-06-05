@@ -13,28 +13,3 @@
     <input type="submit" value="Show transactions">
 
 </form>
-
-{##}
-{#<div class="row">#}
-{#    <div class="col-8">#}
-{#        <form action="{% url 'wallets:index' %}" method="post" class="form form-group">#}
-{##}
-{#            <h6>Qué cantidad desea pedir prestado?</h6>#}
-{##}
-{#            <div class="input-group">#}
-{#                {% csrf_token %}#}
-{#                <div class="col-auto">#}
-{#                    {% for field in form %}#}
-{#                        <div class="fieldWrapper">#}
-{#                            {{ field.errors }}#}
-{#                            {{ field.label_tag }} {{ field }} {{ field.help_text }}#}
-{#                        </div>#}
-{#                    {% endfor %}#}
-{#                </div>#}
-{#                <div class="col-auto">#}
-{#                    <button type="submit" class="btn btn-success">Buscar</button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </form>#}
-{#    </div>#}
-{#</div>#}

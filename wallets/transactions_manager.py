@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from wallets.models import FillUpTransaction, TransferTransaction
 import pandas as pd
+from wallets.models import FillUpTransaction, TransferTransaction
 
 
 class TransactionsManager():
@@ -55,7 +55,6 @@ class TransactionsManager():
         # merge DataFrames:
         merged_report = trs_log_df.append(other=[trs_log_df_in_ttrs, trs_log_df_out_ttrs])
         # sort by date:
-        #import ipdb; ipdb.set_trace()
         if len(merged_report) > 0:
             merged_report.sort_values(by='timestamp', inplace=True)
 
