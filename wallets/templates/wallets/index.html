@@ -1,0 +1,15 @@
+{% if wallets_list %}
+    <h2>Wallets</h2>
+    <ul>
+        {% for wallet in wallets_list %}
+            <li><a href="/wallets/{{ wallet.slug }}/">{{ wallet.id }}</a></li>
+{#            <li>{{ wallet.id }}</li>#}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No wallets are available.</p>
+{% endif %}
+<hr/>
+<h2>Registration</h2>
+{% include 'wallets/registration_form.html' %}
+<hr/>

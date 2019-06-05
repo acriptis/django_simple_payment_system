@@ -12,10 +12,12 @@ Simple web application on Django which allows to:
 2. cd to project root directory
 3. pip install -r requirements.txt
 4. python manage.py migrate
-5. python manage.py runserver
+5. python manage.py loaddata FIXTURE?
+6. python manage.py runserver
+7. Create adminuser
 
 # then server works!
-# 
+#
 
 
 # Links to useful resources in topic:

@@ -1,0 +1,20 @@
+<form name="send_money" method="POST" action="send_money">
+    {% csrf_token %}
+    {% for field in send_money_form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+            {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </div>
+
+    {% endfor %}
+    <input type="hidden" name="wallet_hash" value="{{ wallet.slug }}"/>
+
+{#    <input name="target_wallet" type="text" placeholder="Target wallet id"/>#}
+{#    <input name="amount" type="text" placeholder="amount"/>#}
+{#    <input name="currency" type="text" placeholder="currency"/>#}
+    <input type="submit" value="Transfer Money">
+</form>
+<br/>

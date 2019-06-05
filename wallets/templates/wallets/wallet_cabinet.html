@@ -1,0 +1,29 @@
+<h1>Wallet Cabinet</h1><br/>
+{% if wallet %}
+    Hello, {{ wallet.owner.name }}!<br/>
+    Location: {{ wallet.owner.country }}, {{ wallet.owner.city }}<br/>
+    <hr/>
+    <h2>Your Wallet Address is: <strong>{{ wallet.id }}</strong></h2>
+    (Use it for filling up and receiving payments from your partners)
+    <hr>
+    <a href="/wallets/{{ wallet.slug }}">Wallet control URL</a> (Store it in secure place to be able to access/manage your
+    wallet, don't share it with anyone, to keep your private access for the wallet!)<br/>
+    <hr/>
+    <h2>Wallet balance: {{ wallet.balance }}</h2>
+    <hr/>
+    <h2>Fill up a wallet</h2>
+    {% include "wallets/fill_up_form.html" %}
+    <hr/>
+    <h2>Send Money</h2>
+    {% include "wallets/send_money_form.html" %}
+    <hr/>
+    Get transactions:
+    {% include "wallets/filter_transactions_form.html" %}
+    LINK
+{% else %}
+    <p>Unknown wallet</p>
+{% endif %}
+
+{#Regsiter new wallet:#}
+{#{%  include 'wallets/registration_form.html' %}#}
+{#Footer#}
